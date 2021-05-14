@@ -18,8 +18,13 @@ public class DetectCollisions : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "Animal") {
+            GameObject hit = other.gameObject;
+            Health health = hit.GetComponent<Health>();
+            
+            if(health != null) {
+                health.TakeDamage(5);
+            }
             Destroy(gameObject);
-            Destroy(other.gameObject);
         }
     }
 }
