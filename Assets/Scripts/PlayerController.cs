@@ -44,7 +44,9 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other) {
-        Destroy(other.gameObject);
-        Debug.Log("Game Over (hit by animal)");
+        if (other.gameObject.tag == "Animal") {
+            Destroy(other.gameObject);
+            Debug.Log("Game Over (hit by animal)");
+        }
     }
 }
