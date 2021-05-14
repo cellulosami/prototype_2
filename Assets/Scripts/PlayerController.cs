@@ -9,6 +9,9 @@ public class PlayerController : MonoBehaviour
     public float speed = 20.0f;
     public float xRange = 20.0f;
     public float zBound = 15.0f;
+    private float shotDelay = 0.125f;
+    private float shotCooldownProgress = 0.0f;
+
 
     public GameObject projectilePrefab;
     // Start is called before the first frame update
@@ -42,10 +45,14 @@ public class PlayerController : MonoBehaviour
         transform.Translate(move);
 
         //launch banana
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) && shotCooldownProgress >= shotDelay)
         {
             Instantiate(projectilePrefab, transform.position, projectilePrefab.transform.rotation);
+            shotCooldownProgress = 0;
         }
+
+        //banana cooldown
+        shotCooldownProgress += Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other) {
