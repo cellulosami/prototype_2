@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public float horizontalInput;
     public float speed = 20.0f;
     public float xRange = 20.0f;
+    public float zBound = 15.0f;
 
     public GameObject projectilePrefab;
     // Start is called before the first frame update
@@ -20,13 +21,17 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //keep the player inbounds
-        if (transform.position.x < -xRange)
-        {
+        //x
+        if (transform.position.x < -xRange) {
             transform.position = new Vector3(-20, transform.position.y, transform.position.z);
-        }
-        if (transform.position.x > xRange)
-        {
+        } else if (transform.position.x > xRange) {
             transform.position = new Vector3(20, transform.position.y, transform.position.z);
+        }
+        //z
+        if (transform.position.z < 0) {
+            transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+        } else if (transform.position.z > zBound) {
+            transform.position = new Vector3(transform.position.x, transform.position.y, 15);
         }
         
         //move the player
